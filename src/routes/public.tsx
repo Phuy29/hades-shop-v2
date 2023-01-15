@@ -1,0 +1,30 @@
+import React from 'react';
+
+const Home = React.lazy(() => import('pages/home'));
+const Product = React.lazy(() => import('pages/product'));
+const Collection = React.lazy(() => import('pages/collection'));
+const Cart = React.lazy(() => import('pages/cart'));
+
+interface IPublicRoute {
+  path: string;
+  component: React.ReactNode;
+}
+
+export const publicRoutes: IPublicRoute[] = [
+  {
+    path: '/',
+    component: <Home />
+  },
+  {
+    path: '/product',
+    component: <Product />
+  },
+  {
+    path: '/collection',
+    component: <Collection />
+  },
+  {
+    path: '/cart',
+    component: <Cart />
+  }
+];

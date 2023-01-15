@@ -1,14 +1,20 @@
 import React from 'react';
 import './App.css';
 import { LayoutDefault } from 'layout';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { publicRoutes } from 'routes';
 
 function App() {
   return (
-    <LayoutDefault>
-      <div className="h-[1000px]">
-        <h1 className="text-red-600 underline">Hello</h1>
-      </div>
-    </LayoutDefault>
+    <BrowserRouter>
+      <LayoutDefault>
+        <Routes>
+          {publicRoutes.map((publicRoute, index) => {
+            return <Route key={index} path={publicRoute.path} element={publicRoute.component} />;
+          })}
+        </Routes>
+      </LayoutDefault>
+    </BrowserRouter>
   );
 }
 
