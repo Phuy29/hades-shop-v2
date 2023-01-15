@@ -6,6 +6,7 @@ function App() {
   return (
     <>
       <Button></Button>
+      <h1 className="text-red-600 underline">Hello</h1>
     </>
   );
 }
