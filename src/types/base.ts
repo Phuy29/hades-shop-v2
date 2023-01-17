@@ -8,4 +8,5 @@ export type BaseEntity = {
 
 export type Params = {
   collectionSlug: string;
+  productSlug: string;
 };

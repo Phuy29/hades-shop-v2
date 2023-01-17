@@ -16,7 +16,7 @@ export const publicRoutes: IPublicRoute[] = [
     component: <Home />
   },
   {
-    path: '/product',
+    path: '/product/:productSlug',
     component: <Product />
   },
   {
