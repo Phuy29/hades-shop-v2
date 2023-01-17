@@ -6,3 +6,13 @@ export const axiosIntanse = axios.create({
     'Content-Type': 'application/json'
   }
 });
+
+axiosIntanse.interceptors.response.use(
+  (res) => {
+    return res.data;
+  },
+  (err) => {
+    console.error(err);
+    return Promise.reject(err);
+  }
+);

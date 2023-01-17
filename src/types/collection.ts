@@ -1,6 +1,7 @@
 import { BaseEntity } from './base';
+import { Product } from './product';
 
 export type Collection = {
   name: string;
-  product: string[];
+  products: Product[];
 } & BaseEntity;
