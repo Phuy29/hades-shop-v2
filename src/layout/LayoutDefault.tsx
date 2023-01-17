@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useScroll } from 'hooks/useScroll';
+import { classNames } from 'utils/className';
 
 interface LayoutDefaultProps {
   children: React.ReactNode;
@@ -6,7 +8,7 @@ interface LayoutDefaultProps {
 
 export const LayoutDefault = ({ children }: LayoutDefaultProps) => {
   return (
-    <div className="h-screen">
+    <div>
       <Header />
       <main>{children}</main>
       <Footer />
@@ -15,20 +17,14 @@ export const LayoutDefault = ({ children }: LayoutDefaultProps) => {
 };
 
 const Header = () => {
-  const [isBg, setIsBg] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      window.scrollY > 0 ? setIsBg(true) : setIsBg(false);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const shouldScroll = useScroll();
 
   return (
-    <header className={`px-14 w-full ${isBg && 'bg-white'} transition-all duration-300`}>
+    <header
+      className={classNames(
+        shouldScroll ? 'bg-white' : '',
+        'px-14 w-full fixed top-0 z-10 transition-all duration-300'
+      )}>
       <div className="flex items-center justify-between h-[66px]">
         <div className="flex justify-between items-center gap-4">
           <img
