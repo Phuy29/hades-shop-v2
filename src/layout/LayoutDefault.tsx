@@ -1,6 +1,7 @@
 import React from 'react';
 import { useScroll } from 'hooks/useScroll';
 import { classNames } from 'utils/className';
+import { Link } from 'react-router-dom';
 
 interface LayoutDefaultProps {
   children: React.ReactNode;
@@ -27,11 +28,13 @@ const Header = () => {
       )}>
       <div className="flex items-center justify-between h-[66px]">
         <div className="flex justify-between items-center gap-4">
-          <img
-            src="https://theme.hstatic.net/1000306633/1000859591/14/logo.png?v=314"
-            alt="logo"
-            className="h-[50px] pr-8"
-          />
+          <Link to="/">
+            <img
+              src="https://theme.hstatic.net/1000306633/1000859591/14/logo.png?v=314"
+              alt="logo"
+              className="h-[50px] pr-8"
+            />
+          </Link>
 
           <Menu />
         </div>
@@ -79,11 +82,11 @@ const Menu = () => {
     <nav className="flex gap-5">
       {menu.map((item, index) => {
         return (
-          <div key={index}>
+          <Link to={`/collection/${item.slug}`} key={index}>
             <span className="hover:before:block hover:before:absolute hover:before:-inset-1 hover:before:-skew-y-3 hover:before:bg-[url(https://file.hstatic.net/1000306633/file/269858510_400978881784237_2773069039765727977_n_1dec697e894b44028881c14c6507f7d8.png)] before:bg-no-repeat before:bg-contain relative uppercase font-normal text-xs">
               <span className="relative">{item.name}</span>
             </span>
-          </div>
+          </Link>
         );
       })}
     </nav>
