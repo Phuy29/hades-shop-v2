@@ -20,7 +20,7 @@ export const publicRoutes: IPublicRoute[] = [
     component: <Product />
   },
   {
-    path: '/collection',
+    path: '/collection/:collectionSlug',
     component: <Collection />
   },
   {
