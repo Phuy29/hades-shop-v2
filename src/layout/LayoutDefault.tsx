@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useScroll } from 'hooks/useScroll';
 import { classNames } from 'utils/className';
 import { Link } from 'react-router-dom';
+import { SlideCartContextType, SlideContext } from 'providers/SlideContext';
 
 interface LayoutDefaultProps {
   children: React.ReactNode;
@@ -94,6 +95,8 @@ const Menu = () => {
 };
 
 const UserNavigation = () => {
+  const { setOpenSlideCart } = useContext(SlideContext) as SlideCartContextType;
+
   return (
     <>
       <div className="flex items-center gap-5 text-xs justify-end uppercase">
@@ -103,7 +106,9 @@ const UserNavigation = () => {
         </div>
 
         <div className="cursor-pointer">Search</div>
-        <div className="cursor-pointer">CART</div>
+        <div className="cursor-pointer" onClick={() => setOpenSlideCart(true)}>
+          CART
+        </div>
         <div className="flex uppercase bg-black p-1 text-white items-center">
           EN
           <svg
