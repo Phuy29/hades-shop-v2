@@ -1,4 +1,5 @@
 import { useGetProduct } from 'api/product/getProduct';
+import { Button } from 'components/Button';
 import { Link, useParams } from 'react-router-dom';
 import { Params } from 'types/base';
 
@@ -32,14 +33,16 @@ const Product = () => {
               })}
             </div>
           </div>
+
           <div className="flex justify-between mt-6">
             <p>Kích thước:</p>
             <p className="font-thin underline text-12 cursor-pointer">Bảng size:</p>
           </div>
+
           <div className="flex flex-wrap my-5">
             {productQuery.data.sizes?.map((item) => {
               return (
-                <div key={item} className="group">
+                <div key={item} className="group flex-initial w-24">
                   <input
                     type="radio"
                     key={item}
@@ -50,21 +53,22 @@ const Product = () => {
                   />
                   <label
                     htmlFor={item}
-                    className="inline-block py-4 px-10 text-base border border-black shadow-sm cursor-pointer group-checked:bg-black">
-                    <div>{item}</div>
+                    className="inline-block w-full py-4 text-center text-base border border-black shadow-sm cursor-pointer group-checked:bg-black">
+                    <span>{item}</span>
                   </label>
                 </div>
               );
             })}
           </div>
-          <button className="my-4 w-full py-5 border border-black font-medium cursor-pointer">
+
+          <Button variant="outline" size="lg" className="w-full my-4">
             Thêm vào giỏ hàng
-          </button>
+          </Button>
 
           <Link to="/cart">
-            <button className="w-full py-5 font-medium cursor-pointer bg-black text-white">
+            <Button size="lg" className="w-full">
               Mua ngay
-            </button>
+            </Button>
           </Link>
         </div>
       </div>

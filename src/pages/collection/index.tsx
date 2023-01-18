@@ -1,4 +1,5 @@
 import { useGetCollection } from 'api/collection/getCollection';
+import { Button } from 'components/Button';
 import { Link, useParams } from 'react-router-dom';
 import { Params } from 'types/base';
 
@@ -34,11 +35,11 @@ const ProductCard = ({
             <img src={imageHoverUrl} alt="" className="h-[400px] w-full object-cover" />
           </div>
         </Link>
-        <div className="gap-3 absolute bottom-2 w-full flex opacity-0 group-hover:opacity-100 transition-all ease-in duration-500 group-hover:animate-slideDown">
-          <Link to="/cart" className="ct-button">
-            Buy now
+        <div className="flex gap-3 absolute bottom-2 w-full opacity-0 group-hover:opacity-100 transition-all ease-in duration-500 group-hover:animate-slideDown">
+          <Link to="/cart" className="basis-1/2">
+            <Button className="w-full">Buy now</Button>
           </Link>
-          <div className="ct-button">Add to card</div>
+          <Button className="basis-1/2">Add to card</Button>
         </div>
       </div>
       <div className="mt-[15px]">
