@@ -1,15 +1,11 @@
-import { SlideCartContextType, SlideContext } from 'providers/SlideContext';
-import { useContext } from 'react';
+import { useSlideCart } from 'hooks/useSlideCart';
 import { Slide } from './Slide';
 
 export const SlideCart = () => {
-  const { openSlideCart, setOpenSlideCart } = useContext(SlideContext) as SlideCartContextType;
+  const { shouldOpen, close } = useSlideCart();
 
-  const handleClose = () => {
-    setOpenSlideCart(false);
-  };
   return (
-    <Slide title="Cart" isOpen={openSlideCart} onClose={handleClose}>
+    <Slide title="Cart" isOpen={shouldOpen} onClose={close}>
       Cart
     </Slide>
   );

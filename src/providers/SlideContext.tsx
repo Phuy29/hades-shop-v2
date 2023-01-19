@@ -1,22 +1,35 @@
 import React, { createContext, useState } from 'react';
 
 export type SlideCartContextType = {
-  openSlideCart: boolean;
-  setOpenSlideCart: React.Dispatch<React.SetStateAction<boolean>>;
+  shouldOpenSlideCart: boolean;
+  close: () => void;
+  open: () => void;
 };
 
-export const SlideContext = createContext<SlideCartContextType | null>(null);
+export const SlideCartContext = createContext<SlideCartContextType>({
+  shouldOpenSlideCart: false,
+  close: () => null,
+  open: () => null
+});
 
 type SlideContextProviderProps = {
   children: React.ReactNode;
 };
 
 export const SlideContextProvider = ({ children }: SlideContextProviderProps) => {
-  const [openSlideCart, setOpenSlideCart] = useState(false);
+  const [shouldOpenSlideCart, setShouldOpenSlideCart] = useState(false);
+
+  const close = () => {
+    setShouldOpenSlideCart(false);
+  };
+
+  const open = () => {
+    setShouldOpenSlideCart(true);
+  };
 
   return (
-    <SlideContext.Provider value={{ openSlideCart, setOpenSlideCart }}>
+    <SlideCartContext.Provider value={{ shouldOpenSlideCart, close, open }}>
       {children}
-    </SlideContext.Provider>
+    </SlideCartContext.Provider>
   );
 };
