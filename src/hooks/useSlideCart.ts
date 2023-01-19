@@ -1,4 +1,4 @@
-import { SlideCartContext } from 'providers/SlideContext';
+import { SlideCartContext } from 'contexts/SlideCartContext/SlideCartContext';
 import { useContext } from 'react';
 
 export const useSlideCart = () => {
