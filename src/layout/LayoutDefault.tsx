@@ -95,7 +95,7 @@ const Menu = () => {
 };
 
 const UserNavigation = () => {
-  const { open } = useSlideCart();
+  const { open, state } = useSlideCart();
   return (
     <>
       <div className="flex items-center gap-5 text-xs justify-end uppercase">
@@ -106,7 +106,7 @@ const UserNavigation = () => {
 
         <div className="cursor-pointer">Search</div>
         <div className="cursor-pointer" onClick={() => open()}>
-          CART
+          CART ({state.totalQuantity})
         </div>
         <div className="flex uppercase bg-black p-1 text-white items-center">
           EN

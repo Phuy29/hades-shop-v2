@@ -6,7 +6,7 @@ export type Cart = {
   price: number;
   color: string;
   size: string;
-  cartQuantity?: number;
+  cartQuantity: number;
 };
 
 export type SlideCartState = {

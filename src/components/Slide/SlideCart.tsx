@@ -2,12 +2,11 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Button } from 'components/Button';
 import { useSlideCart } from 'hooks/useSlideCart';
 import { Link } from 'react-router-dom';
+import { formatPriceDot } from 'utils/formatPrice';
 import { Slide } from './Slide';
 
 export const SlideCart = () => {
   const { shouldOpen, close, state, removeCartItem } = useSlideCart();
-
-  console.log('carts', state.carts);
 
   return (
     <Slide title="Cart" isOpen={shouldOpen} onClose={close}>
@@ -64,7 +63,9 @@ export const SlideCart = () => {
             <div className="w-full border-t-2 border-black mt-10"></div>
             <div className="flex justify-between mt-6">
               <div className="uppercase text-14">Total</div>
-              <div>{state.totalPrice}.000₫</div>
+              <div>
+                {state.totalPrice === 0 ? '0đ' : `${formatPriceDot(state.totalPrice)}.000₫`}
+              </div>
             </div>
             <Link to="/cart">
               <div className="mt-7" onClick={() => close()}>

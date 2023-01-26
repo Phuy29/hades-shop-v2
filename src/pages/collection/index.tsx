@@ -37,7 +37,8 @@ const ProductCard = ({
       name,
       color: colors[0],
       size: sizes[0],
-      price: Number(price)
+      price: Number(price),
+      cartQuantity: 1
     };
 
     addCartItem(product);

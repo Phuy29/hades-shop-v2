@@ -25,16 +25,13 @@ const ProductMain = ({ product }: ProductMainProps) => {
       name: product.name,
       slug: product.slug,
       color: colorState,
-      size: sizeState
+      size: sizeState,
+      cartQuantity: 1
     };
 
     addCartItem(cartItem);
     open();
   };
-
-  console.log('productPage');
-  console.log('colorState', colorState);
-  console.log('sizeState', sizeState);
 
   return (
     <div className="flex justify-center gap-24" key={product._id}>

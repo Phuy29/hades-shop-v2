@@ -8,8 +8,19 @@ export const useSlideCart = () => {
     open,
     state,
     addCartItem,
-    removeCartItem
+    removeCartItem,
+    decreaseQuantity,
+    increaseQuantity
   } = useContext(SlideCartContext);
 
-  return { shouldOpen, close, open, state, addCartItem, removeCartItem };
+  return {
+    shouldOpen,
+    close,
+    open,
+    state,
+    addCartItem,
+    removeCartItem,
+    decreaseQuantity,
+    increaseQuantity
+  };
 };

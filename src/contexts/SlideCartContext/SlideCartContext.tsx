@@ -6,18 +6,22 @@ export type SlideCartContextType = {
   shouldOpenSlideCart: boolean;
   close: () => void;
   open: () => void;
+  state: SlideCartState;
   addCartItem: (cartItem: Cart) => void;
   removeCartItem: (cartItem: Cart) => void;
-  state: SlideCartState;
+  decreaseQuantity: (cartItem: Cart) => void;
+  increaseQuantity: (cartItem: Cart) => void;
 };
 
 export const SlideCartContext = createContext<SlideCartContextType>({
   shouldOpenSlideCart: false,
   close: () => null,
   open: () => null,
+  state: slideCartInitialState,
   addCartItem: () => null,
   removeCartItem: () => null,
-  state: slideCartInitialState
+  decreaseQuantity: () => null,
+  increaseQuantity: () => null
 });
 
 type SlideContextProviderProps = {
@@ -44,9 +48,26 @@ export const SlideContextProvider = ({ children }: SlideContextProviderProps) =>
     dispatch({ type: 'removeCartItem', payload: cartItem });
   };
 
+  const decreaseQuantity = (cartItem: Cart) => {
+    dispatch({ type: 'decreaseQuantity', payload: cartItem });
+  };
+
+  const increaseQuantity = (cartItem: Cart) => {
+    dispatch({ type: 'increaseQuantity', payload: cartItem });
+  };
+
   return (
     <SlideCartContext.Provider
-      value={{ state, shouldOpenSlideCart, close, open, addCartItem, removeCartItem }}>
+      value={{
+        state,
+        shouldOpenSlideCart,
+        close,
+        open,
+        addCartItem,
+        removeCartItem,
+        decreaseQuantity,
+        increaseQuantity
+      }}>
       {children}
     </SlideCartContext.Provider>
   );
