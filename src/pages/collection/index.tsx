@@ -1,5 +1,8 @@
 import { useGetCollection } from 'api/collection/getCollection';
 import { Button } from 'components/Button';
+import { Cart } from 'contexts/SlideCartContext/type';
+import { useSlideCart } from 'hooks/useSlideCart';
+import { useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Params } from 'types/base';
 
@@ -24,6 +27,23 @@ const ProductCard = ({
   imageUrl,
   imageHoverUrl
 }: ProductCardProps) => {
+  const { open, addCartItem } = useSlideCart();
+
+  const handleAddProductToCart = useCallback(() => {
+    const product: Cart = {
+      id,
+      slug,
+      imgUrl: imageUrl,
+      name,
+      color: colors[0],
+      size: sizes[0],
+      price: Number(price)
+    };
+
+    addCartItem(product);
+    open();
+  }, []);
+
   return (
     <div className="text-center cursor-pointer">
       <div className="relative group h-full">
@@ -39,7 +59,9 @@ const ProductCard = ({
           <Link to="/cart" className="basis-1/2">
             <Button className="w-full">Buy now</Button>
           </Link>
-          <Button className="basis-1/2">Add to card</Button>
+          <Button className="basis-1/2" onClick={handleAddProductToCart}>
+            Add to card
+          </Button>
         </div>
       </div>
       <div className="mt-[15px]">

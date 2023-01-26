@@ -4,9 +4,9 @@ export type Cart = {
   imgUrl: string;
   slug: string;
   price: number;
-  color: string[];
-  size: string[];
-  cartQuantity: number;
+  color: string;
+  size: string;
+  cartQuantity?: number;
 };
 
 export type SlideCartState = {

@@ -2,7 +2,14 @@ import { SlideCartContext } from 'contexts/SlideCartContext/SlideCartContext';
 import { useContext } from 'react';
 
 export const useSlideCart = () => {
-  const { shouldOpenSlideCart: shouldOpen, close, open } = useContext(SlideCartContext);
+  const {
+    shouldOpenSlideCart: shouldOpen,
+    close,
+    open,
+    state,
+    addCartItem,
+    removeCartItem
+  } = useContext(SlideCartContext);
 
-  return { shouldOpen, close, open };
+  return { shouldOpen, close, open, state, addCartItem, removeCartItem };
 };
