@@ -1,11 +1,11 @@
 /* eslint-disable no-case-declarations */
-import { localStorage } from 'utils/localStorage';
+import { storage } from 'utils/storage';
 import { Cart, SlideCartState } from './type';
 
 export const slideCartInitialState: SlideCartState = {
-  carts: localStorage.getCarts() ?? [],
-  totalPrice: 0,
-  totalQuantity: 0
+  carts: storage.getCarts() ?? [],
+  totalPrice: storage.getTotalCart()?.totalPrice ?? 0,
+  totalQuantity: storage.getTotalCart()?.totalQuantity ?? 0
 };
 
 type ACTIONTYPE =
@@ -36,6 +36,8 @@ export const slideCartReducer = (state: SlideCartState, action: ACTIONTYPE): Sli
 
     state.totalPrice = total.price;
     state.totalQuantity = total.quantity;
+
+    storage.setTotalCart({ totalPrice: state.totalPrice, totalQuantity: state.totalQuantity });
   };
 
   switch (action.type) {
@@ -59,7 +61,7 @@ export const slideCartReducer = (state: SlideCartState, action: ACTIONTYPE): Sli
         state.carts = [...state.carts, tempCartItems];
       }
 
-      localStorage.setCarts(state.carts);
+      storage.setCarts(state.carts);
 
       getTotal();
 
@@ -82,7 +84,7 @@ export const slideCartReducer = (state: SlideCartState, action: ACTIONTYPE): Sli
         state.carts.splice(cartIndex, 1);
       }
 
-      localStorage.setCarts(state.carts);
+      storage.setCarts(state.carts);
 
       getTotal();
 
@@ -110,7 +112,7 @@ export const slideCartReducer = (state: SlideCartState, action: ACTIONTYPE): Sli
         }
       }
 
-      localStorage.setCarts(state.carts);
+      storage.setCarts(state.carts);
 
       getTotal();
 
@@ -131,7 +133,7 @@ export const slideCartReducer = (state: SlideCartState, action: ACTIONTYPE): Sli
       );
       state.carts[cartIndex].cartQuantity += 1;
 
-      localStorage.setCarts(state.carts);
+      storage.setCarts(state.carts);
 
       getTotal();
 
