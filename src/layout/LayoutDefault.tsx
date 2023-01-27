@@ -3,6 +3,7 @@ import { useScroll } from 'hooks/useScroll';
 import { classNames } from 'utils/className';
 import { Link } from 'react-router-dom';
 import { useSlideCart } from 'hooks/useSlideCart';
+import { useSlideSearch } from 'hooks/useSlideSearch';
 
 interface LayoutDefaultProps {
   children: React.ReactNode;
@@ -95,7 +96,9 @@ const Menu = () => {
 };
 
 const UserNavigation = () => {
-  const { open, state } = useSlideCart();
+  const { open: openSlideCart, state } = useSlideCart();
+  const { open: openSlideSearch } = useSlideSearch();
+
   return (
     <>
       <div className="flex items-center gap-5 text-xs justify-end uppercase">
@@ -104,8 +107,10 @@ const UserNavigation = () => {
           <span className="cursor-pointer">Register</span>
         </div>
 
-        <div className="cursor-pointer">Search</div>
-        <div className="cursor-pointer" onClick={() => open()}>
+        <div className="cursor-pointer" onClick={() => openSlideSearch()}>
+          Search
+        </div>
+        <div className="cursor-pointer" onClick={() => openSlideCart()}>
           CART ({state.totalQuantity})
         </div>
         <div className="flex uppercase bg-black p-1 text-white items-center">

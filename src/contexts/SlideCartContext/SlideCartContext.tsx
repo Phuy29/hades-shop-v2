@@ -24,11 +24,11 @@ export const SlideCartContext = createContext<SlideCartContextType>({
   increaseQuantity: () => null
 });
 
-type SlideContextProviderProps = {
+type SlideCartContextProviderProps = {
   children: React.ReactNode;
 };
 
-export const SlideContextProvider = ({ children }: SlideContextProviderProps) => {
+export const SlideCartContextProvider = ({ children }: SlideCartContextProviderProps) => {
   const [shouldOpenSlideCart, setShouldOpenSlideCart] = useState(false);
   const [state, dispatch] = useReducer(slideCartReducer, slideCartInitialState);
 
