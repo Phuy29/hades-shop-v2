@@ -1,6 +1,7 @@
 import { BaseEntity } from './base';
 
 export type Product = {
+  slug: string;
   name: string;
   price: string;
   colors: string[];
