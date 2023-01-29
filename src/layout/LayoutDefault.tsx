@@ -103,8 +103,12 @@ const UserNavigation = () => {
     <>
       <div className="flex items-center gap-5 text-xs justify-end uppercase">
         <div>
-          <span className="cursor-pointer">Login</span> /
-          <span className="cursor-pointer">Register</span>
+          <Link to={'/login'}>
+            <span className="cursor-pointer">Login</span> /
+          </Link>
+          <Link to={'/register'}>
+            <span className="cursor-pointer">Register</span>
+          </Link>
         </div>
 
         <div className="cursor-pointer" onClick={() => openSlideSearch()}>
