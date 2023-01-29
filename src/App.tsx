@@ -8,6 +8,7 @@ import { SlideCartContextProvider } from 'contexts/SlideCartContext/SlideCartCon
 import { SlideCart } from 'components/Slide';
 import { SlideSearchContextProvider } from 'contexts/SlideSearchContext/SlideSearchContext';
 import { SlideSearch } from 'components/Slide/SlideSearch';
+import { AuthContextProvider } from './contexts/AuthContext/AuthContext';
 
 const queryClient = new QueryClient();
 
@@ -15,23 +16,29 @@ function App() {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <SlideCartContextProvider>
-          <SlideSearchContextProvider>
-            <LayoutDefault>
-              <Suspense fallback="Loading...">
-                <Routes>
-                  {publicRoutes.map((publicRoute, index) => {
-                    return (
-                      <Route key={index} path={publicRoute.path} element={publicRoute.component} />
-                    );
-                  })}
-                </Routes>
-                <SlideCart />
-                <SlideSearch />
-              </Suspense>
-            </LayoutDefault>
-          </SlideSearchContextProvider>
-        </SlideCartContextProvider>
+        <AuthContextProvider>
+          <SlideCartContextProvider>
+            <SlideSearchContextProvider>
+              <LayoutDefault>
+                <Suspense fallback="Loading...">
+                  <Routes>
+                    {publicRoutes.map((publicRoute, index) => {
+                      return (
+                        <Route
+                          key={index}
+                          path={publicRoute.path}
+                          element={publicRoute.component}
+                        />
+                      );
+                    })}
+                  </Routes>
+                  <SlideCart />
+                  <SlideSearch />
+                </Suspense>
+              </LayoutDefault>
+            </SlideSearchContextProvider>
+          </SlideCartContextProvider>
+        </AuthContextProvider>
       </QueryClientProvider>
     </BrowserRouter>
   );

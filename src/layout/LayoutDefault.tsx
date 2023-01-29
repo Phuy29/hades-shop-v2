@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useScroll } from 'hooks/useScroll';
 import { classNames } from 'utils/className';
 import { Link } from 'react-router-dom';
 import { useSlideCart } from 'hooks/useSlideCart';
 import { useSlideSearch } from 'hooks/useSlideSearch';
+import { useAuth } from '../hooks/useAuth';
+import { Menu, Transition } from '@headlessui/react';
+import { useMutation } from 'react-query';
+import { logout } from '../api/auth/logout';
+import { storage } from '../utils/storage';
+
+const adminNavigation = [
+  { name: 'Products', href: '/admin/products' },
+  { name: 'Collections', href: '/admin/collections' },
+  { name: 'Users', href: '/admin/users' }
+];
+
+const userNavigation = [{ name: 'Profile', href: '/' }];
 
 interface LayoutDefaultProps {
   children: React.ReactNode;
@@ -38,7 +51,7 @@ const Header = () => {
             />
           </Link>
 
-          <Menu />
+          <MenuBar />
         </div>
 
         <UserNavigation />
@@ -79,7 +92,7 @@ const menu: IMenu[] = [
   }
 ];
 
-const Menu = () => {
+const MenuBar = () => {
   return (
     <nav className="flex gap-5">
       {menu.map((item, index) => {
@@ -98,18 +111,25 @@ const Menu = () => {
 const UserNavigation = () => {
   const { open: openSlideCart, state } = useSlideCart();
   const { open: openSlideSearch } = useSlideSearch();
+  const { authData } = useAuth();
 
   return (
     <>
       <div className="flex items-center gap-5 text-xs justify-end uppercase">
-        <div>
-          <Link to={'/login'}>
-            <span className="cursor-pointer">Login</span> /
-          </Link>
-          <Link to={'/register'}>
-            <span className="cursor-pointer">Register</span>
-          </Link>
-        </div>
+        {authData?.user ? (
+          <>
+            <ProfileDropdown />
+          </>
+        ) : (
+          <div>
+            <Link to={'/login'}>
+              <span className="cursor-pointer">Login</span> /
+            </Link>
+            <Link to={'/register'}>
+              <span className="cursor-pointer">Register</span>
+            </Link>
+          </div>
+        )}
 
         <div className="cursor-pointer" onClick={() => openSlideSearch()}>
           Search
@@ -131,6 +151,81 @@ const UserNavigation = () => {
         </div>
       </div>
     </>
+  );
+};
+
+const ProfileDropdown = () => {
+  const { authData, setAuthData } = useAuth();
+
+  const { mutate: logoutUser } = useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      setAuthData(null);
+      storage.removeToken();
+    }
+  });
+
+  return (
+    <Menu as="div" className="relative ml-3">
+      <div>
+        <Menu.Button className="uppercase">
+          <span>Hi, {authData?.user?.username}</span>
+        </Menu.Button>
+      </div>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          {authData?.user?.isAdmin
+            ? adminNavigation.map((item) => (
+                <Menu.Item key={item.name}>
+                  {({ active }) => (
+                    <Link
+                      to={item.href}
+                      className={classNames(
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700'
+                      )}>
+                      {item.name}
+                    </Link>
+                  )}
+                </Menu.Item>
+              ))
+            : userNavigation.map((item) => (
+                <Menu.Item key={item.name}>
+                  {({ active }) => (
+                    <Link
+                      to={item.href}
+                      className={classNames(
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700'
+                      )}>
+                      {item.name}
+                    </Link>
+                  )}
+                </Menu.Item>
+              ))}
+
+          <Menu.Item>
+            {({ active }) => (
+              <div
+                className={classNames(
+                  active ? 'bg-gray-100' : '',
+                  'block px-4 py-3 text-sm text-gray-700 border-t cursor-pointer'
+                )}
+                onClick={() => logoutUser()}>
+                Logout
+              </div>
+            )}
+          </Menu.Item>
+        </Menu.Items>
+      </Transition>
+    </Menu>
   );
 };
 

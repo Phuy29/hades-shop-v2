@@ -1,6 +1,10 @@
 import * as z from 'zod';
 import { Form, InputField } from '../../components/Form';
 import { Button } from '../../components/Button';
+import { useMutation } from 'react-query';
+import { User } from '../../types/user';
+import { register } from '../../api/auth/resgister';
+import { useNavigate } from 'react-router-dom';
 
 const schema = z.object({
   username: z.string().min(1, 'Required'),
@@ -15,12 +19,21 @@ type RegisterValues = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  const { mutateAsync: registerUser } = useMutation({
+    mutationFn: (dataUser: Pick<User, 'username' | 'email' | 'password'>) => register(dataUser),
+    onSuccess: () => {
+      navigate('/login');
+    }
+  });
+
   return (
     <div className="mt-32 m-auto max-w-xl">
       <Form<RegisterValues, typeof schema>
         schema={schema}
         onSubmit={async (values) => {
-          console.log('values register', values);
+          await registerUser(values);
         }}>
         {({ register, formState }) => {
           return (
