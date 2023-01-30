@@ -25,6 +25,9 @@ const Register = () => {
     mutationFn: (dataUser: Pick<User, 'username' | 'email' | 'password'>) => register(dataUser),
     onSuccess: () => {
       navigate('/login');
+    },
+    onError: (error) => {
+      console.error(error);
     }
   });
 

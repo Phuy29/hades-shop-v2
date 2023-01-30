@@ -28,6 +28,9 @@ const Login = () => {
       storage.setToken(data.accessToken);
       setAuthData(data);
       navigate('/');
+    },
+    onError: (error) => {
+      console.error(error);
     }
   });
 

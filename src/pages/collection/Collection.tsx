@@ -2,12 +2,13 @@ import { useGetCollection } from 'api/collection/getCollection';
 import { Button } from 'components/Button';
 import { Cart } from 'contexts/SlideCartContext/type';
 import { useSlideCart } from 'hooks/useSlideCart';
-import { Fragment, useCallback, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Params } from 'types/base';
 import { Product } from 'types/product';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Spinner } from 'components/Loading';
 
 type Option = { label: string; value: OptionValue };
 
@@ -207,6 +208,13 @@ const Collection = () => {
   const params = useParams<Params>();
   const collectionQuery = useGetCollection(params.collectionSlug as string);
   const [selected, setSelected] = useState(options[0]);
+
+  if (collectionQuery.isLoading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner size={'lg'} />
+      </div>
+    );
 
   if (!collectionQuery.data) return null;
 
