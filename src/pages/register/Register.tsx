@@ -1,9 +1,9 @@
 import * as z from 'zod';
-import { Form, InputField } from '../../components/Form';
-import { Button } from '../../components/Button';
+import { Form, InputField } from 'components/Form';
+import { Button } from 'components/Button';
 import { useMutation } from 'react-query';
-import { User } from '../../types/user';
-import { register } from '../../api/auth/resgister';
+import { User } from 'types/user';
+import { register } from 'api/auth/resgister';
 import { useNavigate } from 'react-router-dom';
 
 const schema = z.object({

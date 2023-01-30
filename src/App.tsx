@@ -10,7 +10,7 @@ import { SlideSearchContextProvider } from 'contexts/SlideSearchContext/SlideSea
 import { SlideSearch } from 'components/Slide/SlideSearch';
 import { AuthContextProvider } from './contexts/AuthContext/AuthContext';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { Spinner } from './components/Loading';
+import { Spinner } from 'components/Loading';
 
 const queryClient = new QueryClient({
   defaultOptions: {

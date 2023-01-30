@@ -1,12 +1,12 @@
 import { Form, InputField } from 'components/Form';
 import * as z from 'zod';
-import { Button } from '../../components/Button';
-import { login } from '../../api/auth/login';
+import { Button } from 'components/Button';
+import { login } from 'api/auth/login';
 import { useMutation } from 'react-query';
-import { User } from '../../types/user';
-import { useAuth } from '../../hooks/useAuth';
+import { User } from 'types/user';
+import { useAuth } from 'hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { storage } from '../../utils/storage';
+import { storage } from 'utils/storage';
 
 const schema = z.object({
   username: z.string().min(1, 'Required'),

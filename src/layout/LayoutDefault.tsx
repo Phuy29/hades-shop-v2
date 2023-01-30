@@ -4,11 +4,11 @@ import { classNames } from 'utils/className';
 import { Link } from 'react-router-dom';
 import { useSlideCart } from 'hooks/useSlideCart';
 import { useSlideSearch } from 'hooks/useSlideSearch';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from 'hooks/useAuth';
 import { Menu, Transition } from '@headlessui/react';
 import { useMutation } from 'react-query';
-import { logout } from '../api/auth/logout';
-import { storage } from '../utils/storage';
+import { logout } from 'api/auth/logout';
+import { storage } from 'utils/storage';
 
 const adminNavigation = [
   { name: 'Products', href: '/admin/products' },
