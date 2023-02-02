@@ -113,15 +113,13 @@ const ProductList = ({ products, selected }: ProductListProps) => {
         return products.sort((a, b) => Number(b.price) - Number(a.price));
       case OptionValue.LATEST:
         return products.sort((a, b) => {
-          const createAtA = new Date(a.createdAt).getTime();
-          const createAtB = new Date(b.createdAt).getTime();
-          return createAtB - createAtA;
+          if (new Date(a.createdAt) > new Date(b.createdAt)) return -1;
+          return 1;
         });
       case OptionValue.OLDEST:
         return products.sort((a, b) => {
-          const createAtA = new Date(a.createdAt).getTime();
-          const createAtB = new Date(b.createdAt).getTime();
-          return createAtA - createAtB;
+          if (new Date(a.createdAt) > new Date(b.createdAt)) return 1;
+          return -1;
         });
       default:
         return products;

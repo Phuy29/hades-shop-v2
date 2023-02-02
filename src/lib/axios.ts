@@ -12,7 +12,7 @@ axiosIntanse.interceptors.response.use(
     return res.data;
   },
   (err) => {
-    console.error(err);
+    console.error(err.response.data || err.message);
     return Promise.reject(err);
   }
 );
